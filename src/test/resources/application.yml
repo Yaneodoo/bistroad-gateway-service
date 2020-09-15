@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:${wiremock.server.port:0}
+          predicates:
+            - Path=/v1/users/**
+          filters:
+            - StripPrefix=1
+            - JwtAuthorization
+    kubernetes:
+      enabled: false
+security:
+  jwt:
+    token:
+      public-key: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVhjuyWSw7EiKflwXJ6L
+        8df4el7VwNgxczMTGwRo5+eP5SvBbbZCVRa8NWLLwXcXlSE462sLTDXTp+zehloc
+        +/aRB6xbkKan8nrRub3RFDJhE6TcoIXl599DlFgIsHW/i11KhJ8K5bUL/dai1E25
+        IZcnVKCly8kxuz5YYzLfCEciyTzHtBlEfetLW/ZiGQHMEKjq8k0tpzCabCByqc+I
+        GYSRUjYrxCwiCBzTN1h+6aW+u0fUv1H6oZ+EAco98RltMDmafN+nIXvW9JL0HY79
+        byBwVjYA/gaocajqyHOHzjPPAs2SP2k/od+hJYMmU/HES1Ek3/9PxyHKozKjbl7a
+        PQIDAQAB
+        -----END PUBLIC KEY-----
+      private-key: |
+        -----BEGIN PRIVATE KEY-----
+        MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCZWGO7JZLDsSIp
+        +XBcnovx1/h6XtXA2DFzMxMbBGjn54/lK8FttkJVFrw1YsvBdxeVITjrawtMNdOn
+        7N6GWhz79pEHrFuQpqfyetG5vdEUMmETpNygheXn30OUWAiwdb+LXUqEnwrltQv9
+        1qLUTbkhlydUoKXLyTG7PlhjMt8IRyLJPMe0GUR960tb9mIZAcwQqOryTS2nMJps
+        IHKpz4gZhJFSNivELCIIHNM3WH7ppb67R9S/Ufqhn4QByj3xGW0wOZp836che9b0
+        kvQdjv1vIHBWNgD+BqhxqOrIc4fOM88CzZI/aT+h36ElgyZT8cRLUSTf/0/HIcqj
+        MqNuXto9AgMBAAECggEAHl+QmYAOuu45+yBqLh5FT+jcUbi5FBJ+cPf7380WzmBi
+        cx0gmg+QwfPX4aco/rANHr/O22p/eV/sBYX4aZotxYaIIYH1PQiVmYTUR7seT6bO
+        7aoo/S6oZC4n35k0V2drQjp/SReLfAZJUsURyYV/lvSumKedT2kRjaoCrdtkq+nE
+        ray9gRJr5i1KiiuWNGYLVDWUEWb1lodKcfKO8vVMkdI7Amhh/rj/LHIGjHbZM8qV
+        OkoY5mn9bsN4IKO8/0QS4+hhBg5tmt6HK96u33Z1DzIBgGR933JlnnmNByiY81Fi
+        ntYIb0NyU05iewvm4Gz3a91YK5wfKdWtLrSfkqNBDQKBgQDI/UHJXKqIZ/nqg2wV
+        Uy6Rpas+Odq/KsCimIZpyjgmdIr22a8IzzlDuSbhySxwOGDI6QJjzOhrv28FgVhz
+        VQFeRoLpNcZElYecaAVFfVn5z4Cl5RvzB47xCDq1uNfX85O1ROn1S5DtsMME4DhE
+        qqy73MbD4eYpd5WuPZvnIPh8iwKBgQDDUNppIpniltstisb+f/fL6loQDmQiSzIz
+        twaU8UGuxXq4kohFvinfZ3NPeISSiQrhkf5h2aUPT/qZM7ZUXJw558aRwTkkhJNg
+        n2jjOBzJS5dWHmQ4cXuUm0g78wokkLlEFCLuq8lM+hw9bFo+6n2TkVVPAf9MunVu
+        aNOwJiN1VwKBgAIgE3MCpNb+ankdXKY5E/P8UXw99l8xH4pYnIs/1Soq71E+6gfo
+        0Q0zRwL6MpsZLYTSWfEeOJLzGkRvorTNgE8z5ax7ohYVkrKHsw6SDcKDfDPE4W/H
+        c65+zMghJT8mVziCewrZ+rVYuicyC8ZGG798zSlDGUD0/8Mw6ZYfFiGTAoGBAKP5
+        xHRRzVoThs10Xl6aNwKmrJggTOcRtIMAXPE8nwVI3CALPYc4ANWDd6a3qq2PimgY
+        drXV0KLLZburU5795VckBGyoCP5ko4qSKq/gkyJYaSSu/Tr542O+/mT+RXyvWCsU
+        sMMpzCXpMT5MMnPx0B3M/Q8IwTq8rAxWy6puSoSfAoGAS39Xu34VcE4aO50lTZiQ
+        AtFcuIYtUhlK6SfWEPnNtGxjw3uS/qwxOruiM1yJzMXCGS3JUutSkhjwaSxdeeJL
+        oHqLUXKi9Sh5RXLT8PWQg1iWRH/v9kYIJCy0vyzvc3dXjaf5Kv/HoyBKPuM5iTGL
+        lbGUoHjrXSKW/d+UTOrZ1dY=
+        -----END PRIVATE KEY-----
